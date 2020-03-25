@@ -28,7 +28,7 @@ export default class MarsPhotos extends React.Component{
    }
 
     render(){
-        let photos  = <Spinner />
+        let photos  = null
         console.log(this.state.photos)
         if (!this.state.loading){
             photos = this.state.photos.map((photo, index) => {
@@ -41,10 +41,13 @@ export default class MarsPhotos extends React.Component{
             })
         }   
 
-        return (      
-            <div className={classes.GridContainer}>
-                {photos}
-            </div>
+        return (  
+            <div>
+                {this.state.loading ? <Spinner/> : null}
+                <div className={classes.GridContainer}>
+                    {photos}
+                </div>
+            </div> 
         )
     }
 }

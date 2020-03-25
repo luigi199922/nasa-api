@@ -8,8 +8,9 @@ const NearEarthObjectsCard = props => {
             <h2>{props.object.name}</h2>
             <p>Diameter Minimum : {props.diameter.kilometers.estimated_diameter_min}</p>
             <p>Diameter Maximum: {props.diameter.kilometers.estimated_diameter_max}</p>
-            <a href={props.object.nasa_jpl_url}>Learn More</a>
-            <Button className="Danger" clicked={props.clicked}>Remove</Button>
+            <a href={props.object.nasa_jpl_url} target="_blank" rel="noopener noreferrer">Learn More</a>
+            <br/>
+            <Button className="Info" clicked={props.clicked}>Remove</Button>
         </div>
     )
 }

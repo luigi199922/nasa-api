@@ -2,10 +2,13 @@
     border: 1px solid #ccc;
     box-shadow: 1px 1px 1px black;
     width: 70%;
+    margin-top: 90px;
     left: 15%;
-    top: 15%;
+    right: 15%;
     position: relative;
     padding: 10px;
+    border-radius: 10%;
+    background-color: white;
 }
 
 .Card img{

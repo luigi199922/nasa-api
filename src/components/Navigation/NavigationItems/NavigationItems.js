@@ -7,6 +7,7 @@ const NavigationItems = (props) => (
         <NavigationItem link="/">NASA API REACT</NavigationItem>
         <NavigationItem link="/mars-photo">Mars Gallery</NavigationItem>
         <NavigationItem link="/near-earth-objects">Near Earth Objects</NavigationItem>
+        <NavigationItem link="/search">Search</NavigationItem>
     </ul>
 )
 export default NavigationItems
