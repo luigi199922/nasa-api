@@ -1,0 +1,8 @@
+.Photo {
+    text-align: center;
+    border: 1px solid #ccc;
+    box-shadow: 1px 1px 1px black;
+    padding: 10px;
+    font-size: 30px;
+    margin: 15px;
+}

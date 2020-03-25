@@ -1,0 +1,14 @@
+.Footer {
+    height:50px;
+    width:100%;
+    background:rgb(67, 80, 153);
+    text-align: center;
+    color: white;
+    font-family: sans-serif;
+    margin-top: 20px;
+    text-align: center;
+ }
+ 
+ .Footer p{
+    margin: auto;
+}

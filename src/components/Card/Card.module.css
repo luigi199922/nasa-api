@@ -1,0 +1,24 @@
+.Card {
+    border: 1px solid #ccc;
+    box-shadow: 1px 1px 1px black;
+    width: 70%;
+    left: 15%;
+    top: 15%;
+    position: relative;
+    padding: 10px;
+}
+
+.Card img{
+    max-width: 500px;
+}
+
+@media only screen and (max-width: 745px){
+    .Card img {     
+        max-width: 400px;
+    }
+}
+@media only screen and (max-width: 600px){
+    .Card img {
+        display: none
+    }
+}

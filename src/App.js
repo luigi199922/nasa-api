@@ -1,8 +1,7 @@
 import React from 'react';
 import {BrowserRouter} from 'react-router-dom'
 import BaseRouter from './routes'
-import Navbar from './containers/Navbar/Navbar'
-
+import Layout from './hoc/Layout/Layout'
 export default class App extends React.Component{
 
   state = {
@@ -11,12 +10,10 @@ export default class App extends React.Component{
 
   render(){
     return (
-      <BrowserRouter>
-        <Navbar/>
-        <div className="App">
-          
-          <BaseRouter/>
-        </div> 
+      <BrowserRouter> 
+          <Layout>
+            <BaseRouter/>
+          </Layout>  
       </BrowserRouter>
       
     );

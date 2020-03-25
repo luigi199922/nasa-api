@@ -1,0 +1,9 @@
+.GridContainer{
+    display: grid;
+    grid-template-columns: auto auto auto;
+    padding: 10px;
+    margin: auto;
+    text-align: center;
+    width: 80%;
+}
+
