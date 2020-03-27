@@ -1,5 +1,6 @@
 .Input {
     width: 100%;
+    position: relative;
     padding: 10px;
     box-sizing: border-box;
 }
