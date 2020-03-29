@@ -1,6 +1,7 @@
 import React from 'react'
 import classes from './Photo.module.css'
 
+
 const Photo = props =>{
     return (
             <div className = {classes.Photo} onClick={props.clicked}>
@@ -12,7 +13,8 @@ const Photo = props =>{
                         <p>Taken by: {props.photo.rover.name}</p>
                     </div>
                 </div>
-            </div>      
+            </div>    
+
     )
 }
 export default Photo

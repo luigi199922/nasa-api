@@ -1,71 +1,81 @@
-import React from 'react'
-import axios from '../../axios-orders'
-import Photo from '../../components/Photo/Photo'
-import Spinner from '../../components/UI/Spinner/Spinner'
-import classes from './MarsPhotos.module.css'
-import Backdrop from '../../components/Backdrop/Backdrop'
+import React from "react";
+import Photo from "../../components/Photo/Photo";
+import Spinner from "../../components/UI/Spinner/Spinner";
+import classes from "./MarsPhotos.module.css";
+import Backdrop from "../../components/Backdrop/Backdrop";
+import { API_KEY } from "../../api-key";
+import { connect } from "react-redux";
 import MarsCard from '../../components/MarsCard/MarsCard'
-import {API_KEY} from '../../api-key'
-export default class MarsPhotos extends React.Component{
-    
-   state = {
-       photos: [],
-       loading: true,
-       url: "/mars-photos/api/v1/rovers/curiosity/photos?sol="+ Math.floor(Math.random() * 10) + 1 +"&api_key=" + API_KEY,
-       displayModal: false,
-       img_src: "",
-       photo_display: {
-           rover: {
-               name: ""
-           },
-           img_src: ""
-       }
-    }
+import * as actions from "../../store/actions/index";
 
-   componentDidMount(){
-    axios.get(this.state.url).then(
-        res => (
-            this.setState({
-                photos : res.data.photos,
-                loading: false,
-                photo_display: res.data.photos[0],
-            })
-        )
-    )
-   }
-   onViewModal = (photo) =>{
-       console.log(photo)
-    this.setState({displayModal: true, photo_display: photo})
-    }
-    onRemoveModal = () =>{
-        this.setState({displayModal: false})
-    }
+class MarsPhotos extends React.Component {
+  state = {
+    url:
+      "/mars-photos/api/v1/rovers/curiosity/photos?sol=" +
+      1 +
+      "&api_key=" +
+      API_KEY,
+  };
 
-    render(){
-        let photos  = null
-        if (!this.state.loading){
-            photos = this.state.photos.map((photo, index) => {
-            return(<Photo key={photo.id}
-                          cameras={photo.cameras}
-                          photo={photo}
-                          id={photo.id}
-                          viewModal={() => this.onViewModal(photo)}
-                          removeModal={this.onRemoveModal}
-                          />)
-            })
-        }   
+  componentDidMount() {
+    this.props.onLoadMarsPhotos(this.state.url);
+  }
+  onViewModal = (id) => {
+    this.props.onSelectMarsPhoto(id)
+  };
+  onRemoveModal = () => {
+    this.props.onRemoveMarsPhoto()
+  };
 
-        return (  
-            <div>
-                {this.state.loading ? <Spinner/> : null}
-                <div className={classes.GridContainer}>
-                    {photos}
-                    
-                </div>
-                
-                 {this.state.displayModal ? <MarsCard show={this.state.displayModal} closed={this.onRemoveModal}/> : null}
-                 {this.state.displayModal ? <Backdrop show={this.state.displayModal} /> : null}
-            </div> 
-        )
+  render() {
+    let photos = null;
+    if (!this.props.loading) {
+      photos = this.props.photos.map((photo, index) => {
+        return (
+          <Photo
+            key={photo.id}
+            cameras={photo.cameras}
+            photo={photo}
+            id={photo.id}
+            viewModal={() => this.onViewModal(photo.id)}
+            removeModal={this.onRemoveModal}
+            show={this.props.displayModal}
+          />
+        );
+      });
     }
+    console.log(this.props.displayModal)
+    return (
+      <div>
+        {this.props.loading ? <Spinner /> : null}
+        <div className={classes.GridContainer}>{photos}</div>
+        {this.props.displayModal ? <MarsCard 
+                                show={this.props.displayModal}
+                                closed={this.onRemoveModal}
+                                url={this.props.photo.img_src}
+                                alt='Mars as seen from'/> : null}
+        {this.props.displayModal ? (
+          <Backdrop show={this.props.displayModal} />
+        ) : null}
+      </div>
+    );
+  }
 }
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onLoadMarsPhotos: url => dispatch(actions.fetchMarsPhotos(url)),
+    onSelectMarsPhoto: id => dispatch(actions.fetchMarsPhotoById(id)),
+    onRemoveMarsPhoto : () => dispatch(actions.removeMarsPhotoFromModal())
+  };
+};
+
+const mapStateToProps = state => {
+  return {
+    photos: state.photos,
+    loading: state.photos.loading,
+    displayModal: state.displayModal,
+    photo : state.photo
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(MarsPhotos);
